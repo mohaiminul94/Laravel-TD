@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Book;
+use App\Models\Author;
 use Illuminate\Http\Request;
 
-class BookController extends Controller
+class AuthorController extends Controller
 {
 
     protected function validateRequest()
     {
         return request()->validate([
-            'title'  => 'required',
-            'author'  => 'required',
+            'name'  => 'required',
+            'dob'  => 'required',
         ]);
     }
 
@@ -33,7 +33,7 @@ class BookController extends Controller
      */
     public function create()
     {
-        //
+        Author::create($this->validateRequest());
     }
 
     /**
@@ -44,8 +44,7 @@ class BookController extends Controller
      */
     public function store(Request $request)
     {
-        $book= Book::create($this->validateRequest());
-        return redirect('book/'. $book->id);
+        Author::create($this->validateRequest());
     }
 
     /**
@@ -77,10 +76,9 @@ class BookController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Book $book)
+    public function update(Request $request, $id)
     {
-        $book->update($this->validateRequest());
-        return redirect('book/'. $book->id);
+        //
     }
 
     /**
@@ -89,9 +87,8 @@ class BookController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Book $book)
+    public function destroy($id)
     {
-        $book->delete();
-        return redirect('book');
+        //
     }
 }
